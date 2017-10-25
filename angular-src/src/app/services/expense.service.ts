@@ -27,11 +27,4 @@ export class ExpenseService {
     return this.http.put('http://localhost:3000/users/expenses', newEntry, {headers: headers})
     .map(res => res.json());
   }
-
-  storeUserData(token, user) {
-    localStorage.setItem('id_token', token);
-    localStorage.setItem('user', JSON.stringify(user));
-    this.authToken = token;
-    this.user = user;
-  }
 }

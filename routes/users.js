@@ -41,13 +41,7 @@ router.post('/authenticate', (req, res, next) => {
                 const token = jwt.sign({data: user}, config.secret, {
                     expiresIn: 604800 //1 week
                 });
-                res.json({success: true, token: 'JWT ' + token,
-                user: {
-                    id: user._id,
-                    name: user.name,
-                    username: user.username,
-                    email: user.email
-                }});
+                res.json({success: true, token: 'JWT ' + token});
             } else {
                 return res.json({success: false, msg: "Invalid password"});
             }
@@ -57,22 +51,23 @@ router.post('/authenticate', (req, res, next) => {
 
 //get user profile
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    console.log(req.user);
     res.json({user: req.user});
 });
 
 //log expenses    test code
-router.put('/expenses', (req, res, next) => {
-    let newExpense = new Users.Expense({
-        category: req.body.expense.category,
-        amount: req.body.expense.amount,
-        date: req.body.expense.datepickerModel
-    });
-    Users.getUserById(req.body.id, (err, user) => {
+router.put('/expenses', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    Users.getUserById(req.user._id, (err, user) => {
         console.log(req);
         if (err) {
             res.json({success: false, msg: 'could not find user', error: err});
         }
         if (user) {
+            let newExpense = new Users.Expense({
+                category: req.body.expense.category,
+                amount: req.body.expense.amount,
+                date: req.body.expense.datepickerModel
+            });
             user.expenses.push(newExpense);
             user.save((err) => {
                 if (err) {

@@ -57,3 +57,5 @@ exports.getExpensebyCategory = (category, callback) => {
     const query = {category: category}
     User.find(query, callback);
 };
+
+//exports.getLastTenExpenses = (expenses) =>

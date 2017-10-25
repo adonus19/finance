@@ -46,7 +46,7 @@ export class ExpensesComponent implements OnInit {
     //send user expense
     let user = JSON.parse(localStorage.getItem('user'));
     let entry = {
-      id: user.id,
+      //id: user.id,
       expense: newEntry
     }
     this.expenseService.sendExpense(entry).subscribe(data => {
