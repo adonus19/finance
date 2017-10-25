@@ -3,7 +3,6 @@ const mongoose = require('mongoose'),
       bcrypt = require('bcryptjs'),
       config = require('../config/database');
 
-exports.computer = 'XXXXXXXXXPPPPPPPPSSSSSS';
 
 const UserSchema = new Schema({
     name: {type: String},
@@ -19,7 +18,7 @@ exports.User = User;
 const ExpenseSchema = new Schema({
     category: String,
     amount: Number,
-    date: String
+    date: Date
     // day
     // month
     // year
@@ -38,7 +37,6 @@ exports.getUserByUsername = (username, callback) => {
 };
 
 exports.addUser = (newUser, callback) => {
-    console.log('hhhhjj', newUser);
     bcrypt.genSalt(10, (err, salt) => {
         bcrypt.hash(newUser.password, salt, (err, hash) => {
             if (err) throw err;

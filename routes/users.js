@@ -55,7 +55,7 @@ router.post('/authenticate', (req, res, next) => {
     });
 });
 
-//profile
+//get user profile
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.json({user: req.user});
 });
@@ -65,17 +65,15 @@ router.put('/expenses', (req, res, next) => {
     let newExpense = new Users.Expense({
         category: req.body.expense.category,
         amount: req.body.expense.amount,
-        datepickerModel: req.body.expense.datepickerModel
+        date: req.body.expense.datepickerModel
     });
     Users.getUserById(req.body.id, (err, user) => {
-        console.log('A', newExpense);
+        console.log(req);
         if (err) {
             res.json({success: false, msg: 'could not find user', error: err});
         }
         if (user) {
-            console.log('B', user, newExpense);
             user.expenses.push(newExpense);
-            console.log('C', user.expenses);
             user.save((err) => {
                 if (err) {
                     res.json({success: false, msg: 'error during new expense log', error: err});
