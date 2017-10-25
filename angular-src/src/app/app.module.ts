@@ -21,6 +21,7 @@ import { ChartsModule } from 'ng2-charts';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ExpenseService } from './services/expense.service';
 import { AuthGuard } from './guards/auth.guard';
+import { DashboardExpensesPipe } from './components/dashboard/dashboard-expenses.pipe';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -42,7 +43,8 @@ const appRoutes: Routes = [
     DashboardComponent,
     GoalsComponent,
     ExpensesComponent,
-    ReportsComponent
+    ReportsComponent,
+    DashboardExpensesPipe
   ],
   imports: [
     BrowserModule,

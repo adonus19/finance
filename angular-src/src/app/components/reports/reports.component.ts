@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { ExpenseService } from '../../services/expense.service';
+import { ExpenseModel } from '../expenses/expense-model';
 
 @Component({
   selector: 'app-reports',
@@ -9,7 +10,7 @@ import { ExpenseService } from '../../services/expense.service';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
-  expense: Object;
+  expense: ExpenseModel;
 
   constructor(
     private expenseService: ExpenseService
@@ -18,14 +19,12 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     this.expenseService.getProfileExpenses().subscribe(profile => {
       this.expense = profile.user;
-      console.log('CCCCCCCCCCCCC', this.expense);
+      console.log('DDDDDDDDDD', this.expense);
+
     });
   }
     // lineChart
-    public lineChartData:Array<any> = [
-      [65, 59, 80, 81, 56, 55, 40],
-      [28, 48, 40, 19, 86, 27, 90]
-    ];
+    public lineChartData = this.expense;
     public lineChartLabels:Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
     public lineChartType:string = 'line';
     public pieChartType:string = 'pie';

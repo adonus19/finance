@@ -3,6 +3,15 @@
     <p>
       reports
     </p>
+
+    <div *ngIf="expense">
+      <h2 class="page-header">Reports</h2>
+      <ul class="list-group" *ngFor= "let ex of expense">
+        <li class="list-group-item">Category: {{ex.category}}</li>
+        <li class="list-group-item">Amount: {{ex.amount}}</li>
+        <li class="list-group-item">Date: {{ex.date}}</li>
+      </ul>
+    </div>
   
     <div class="col-md-6">
         
