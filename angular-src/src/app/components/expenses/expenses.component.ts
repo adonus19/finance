@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { FlashMessagesService } from 'angular2-flash-messages';
-import { ExpenseService } from '../../services/expense.service'
+import { ExpenseService } from '../../services/expense.service';
 
 
 @Component({

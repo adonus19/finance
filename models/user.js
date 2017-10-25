@@ -58,4 +58,3 @@ exports.getExpensebyCategory = (category, callback) => {
     User.find(query, callback);
 };
 
-//exports.getLastTenExpenses = (expenses) =>

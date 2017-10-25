@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
+import { ExpenseService } from '../../services/expense.service';
 
 @Component({
   selector: 'app-reports',
@@ -8,11 +9,17 @@ import { Chart } from 'chart.js';
   styleUrls: ['./reports.component.css']
 })
 export class ReportsComponent implements OnInit {
+  expense: Object;
 
-  constructor() { }
+  constructor(
+    private expenseService: ExpenseService
+  ) { }
 
   ngOnInit() {
-    
+    this.expenseService.getProfileExpenses().subscribe(profile => {
+      this.expense = profile.user;
+      console.log('CCCCCCCCCCCCC', this.expense);
+    });
   }
     // lineChart
     public lineChartData:Array<any> = [

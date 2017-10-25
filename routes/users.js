@@ -51,7 +51,6 @@ router.post('/authenticate', (req, res, next) => {
 
 //get user profile
 router.get('/dashboard', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    console.log(req.user);
     res.json({user: req.user});
 });
 
@@ -81,21 +80,9 @@ router.put('/expenses', passport.authenticate('jwt', {session: false}), (req, re
     });
 });
 
-router.get('/expenses', (req, res, next) => {
-    console.log(res.send(this.user.username));
+router.get('/expenses', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    console.log('CCCCCCCCCCCCC', req.user.expenses);
+    res.json({user: req.user.expenses});
 });
 
 module.exports = router;
-
-
-/* old code
-router.put('/expenses', (req, res, next) => {
-    let newExpense = new Expense({
-        category: req.body.category,
-        amount: req.body.amount,
-        datepickerModel: req.body.datepickerModel
-    });
-    res.json(newExpense);
-});
-
-*/
