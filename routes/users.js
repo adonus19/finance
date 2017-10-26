@@ -81,7 +81,6 @@ router.put('/expenses', passport.authenticate('jwt', {session: false}), (req, re
 });
 
 router.get('/expenses', passport.authenticate('jwt', {session: false}), (req, res, next) => {
-    console.log('CCCCCCCCCCCCC', req.user.expenses);
     res.json({user: req.user.expenses});
 });
 
