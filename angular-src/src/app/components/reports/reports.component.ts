@@ -17,12 +17,12 @@ export class ReportsComponent implements OnInit {
   month = '';
   dates = [];
   sortedByMonth = [];
-  years = [];
+  pickedYear = [];
   year = '';
   sortedByYears = [];
   yearsToBeSorted = [];
   sortedYears = [];
-  noDupe = [];
+  yearsNoDupe = [];
 
   constructor(
     private expenseService: ExpenseService,
@@ -32,10 +32,11 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     this.expenseService.getProfileExpenses().subscribe(profile => {
       this.expense = profile.user;
+      console.log(this.expense);
       this.yearsInOrder();
       this.sortedYears = this.yearsToBeSorted.sort();
-      this.noDupe = Array.from(new Set(this.sortedYears))
-      console.log('no duplicates...hhopefully', this.noDupe);
+      this.yearsNoDupe = Array.from(new Set(this.sortedYears))
+      console.log('yearsNoDupe: ' + this.yearsNoDupe);
     });
   }
 
@@ -47,13 +48,14 @@ export class ReportsComponent implements OnInit {
 
   expenseByMonth() {
     this.sortedByMonth = [];
+    this.expenseByYear();
     for (let i = 0; i < this.months.length; i++) {
       if (this.month == this.months[i]) {
+        console.log('pickedYear: ' + this.pickedYear);
         let monthNumber = i + 1;
-        for (let expenseIndex = 0; expenseIndex < this.expense.length; expenseIndex++) {
-          if (monthNumber == this.expense[expenseIndex].date.slice(5, 7)) {
-            this.sortedByMonth.push(this.expense[expenseIndex])
-            console.log(this.sortedByMonth)              
+        for (let expenseIndex = 0; expenseIndex < this.pickedYear.length; expenseIndex++) {
+          if (monthNumber == this.pickedYear[expenseIndex].date.slice(5, 7)) {
+            this.sortedByMonth.push(this.pickedYear[expenseIndex]);             
           }
         } 
       } 
@@ -64,10 +66,12 @@ export class ReportsComponent implements OnInit {
   }
 
   expenseByYear() {
-    this.sortedByYears = [];
+    this.pickedYear = [];
+    console.log('expenses: ' + this.expense[0].date);
     for (let i = 0; i < this.expense.length; i++) {
-      if (this.years == this.expense[i]) {
-
+      if (this.year == this.expense[i].date.slice(0,4)) {
+        console.log(this.pickedYear);
+        this.pickedYear.push(this.expense[i]);
       }
     }
   }
