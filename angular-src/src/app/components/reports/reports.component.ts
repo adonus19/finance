@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Chart } from 'chart.js';
 import { ExpenseService } from '../../services/expense.service';
 import { ExpenseModel } from '../expenses/expense-model';
+import { FlashMessagesService } from 'angular2-flash-messages';
 
 @Component({
   selector: 'app-reports',
@@ -13,11 +14,14 @@ export class ReportsComponent implements OnInit {
   expense = [];
   months = ['January', 'February', 'March', 'April', 'May', 'June', 
     'July', 'August', 'September', 'October', 'November', 'December'];
-  month = 'January';
+  month = '';
   dates = [];
+  sortedByMonth = [];
+  years = [];
 
   constructor(
     private expenseService: ExpenseService,
+    private flashMessage: FlashMessagesService
   ) { }
 
   ngOnInit() {
@@ -27,6 +31,27 @@ export class ReportsComponent implements OnInit {
     });
   }
   expenseByMonth() {
+    this.sortedByMonth = [];
+    for (let i = 0; i < this.months.length; i++) {
+      if (this.month == this.months[i]) {
+        let monthNumber = i + 1;
+        for (let expenseIndex = 0; expenseIndex < this.expense.length; expenseIndex++) {
+          console.log('PPP', this.expense[expenseIndex].date.slice(5,7), monthNumber);
+          if (monthNumber == this.expense[expenseIndex].date.slice(5, 7)) {
+            this.sortedByMonth.push(this.expense[expenseIndex])
+            console.log(this.sortedByMonth)              
+            }
+        } 
+        console.log('ZZZZZ', this.sortedByMonth);
+      } 
+    } 
+    if (this.sortedByMonth.length < 1) {
+      this.flashMessage.show('No expenses for this month', {cssClass: 'alert-warning', timeout: 5500});
+    }
+  }
+    
+    
+    /*
     let monthNumber;
     console.log('GGGGGGG', monthNumber);
     for (let expenseIndex = 0; expenseIndex < this.expense.length; expenseIndex++) {
@@ -42,7 +67,7 @@ export class ReportsComponent implements OnInit {
       return monthNumber;
     }
 
-  }
+  }  */
 
 }
 
