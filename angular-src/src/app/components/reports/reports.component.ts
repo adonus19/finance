@@ -18,6 +18,11 @@ export class ReportsComponent implements OnInit {
   dates = [];
   sortedByMonth = [];
   years = [];
+  year = '';
+  sortedByYears = [];
+  yearsToBeSorted = [];
+  sortedYears = [];
+  noDupe = [];
 
   constructor(
     private expenseService: ExpenseService,
@@ -27,28 +32,46 @@ export class ReportsComponent implements OnInit {
   ngOnInit() {
     this.expenseService.getProfileExpenses().subscribe(profile => {
       this.expense = profile.user;
-      console.log('DDDDDDDDDD', this.expense);
+      this.yearsInOrder();
+      this.sortedYears = this.yearsToBeSorted.sort();
+      this.noDupe = Array.from(new Set(this.sortedYears))
+      console.log('no duplicates...hhopefully', this.noDupe);
     });
   }
+
+  yearsInOrder() {
+    for (let i = 0; i < this.expense.length; i++) {
+      this.yearsToBeSorted.push(this.expense[i].date.slice(0, 4));
+    }
+  }
+
   expenseByMonth() {
     this.sortedByMonth = [];
     for (let i = 0; i < this.months.length; i++) {
       if (this.month == this.months[i]) {
         let monthNumber = i + 1;
         for (let expenseIndex = 0; expenseIndex < this.expense.length; expenseIndex++) {
-          console.log('PPP', this.expense[expenseIndex].date.slice(5,7), monthNumber);
           if (monthNumber == this.expense[expenseIndex].date.slice(5, 7)) {
             this.sortedByMonth.push(this.expense[expenseIndex])
             console.log(this.sortedByMonth)              
-            }
+          }
         } 
-        console.log('ZZZZZ', this.sortedByMonth);
       } 
     } 
     if (this.sortedByMonth.length < 1) {
       this.flashMessage.show('No expenses for this month', {cssClass: 'alert-warning', timeout: 5500});
     }
   }
+
+  expenseByYear() {
+    this.sortedByYears = [];
+    for (let i = 0; i < this.expense.length; i++) {
+      if (this.years == this.expense[i]) {
+
+      }
+    }
+  }
+}
     
     
     /*
@@ -69,7 +92,6 @@ export class ReportsComponent implements OnInit {
 
   }  */
 
-}
 
 
 
