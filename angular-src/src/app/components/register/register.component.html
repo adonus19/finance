@@ -1,20 +1,20 @@
 <h2 class="page-header">Register</h2>
-<form (submit)="onRegisterSubmit()">
+<form (submit)="onRegisterSubmit()" #form="ngForm">
   <div class="form-group">
     <label>Name</label>
-    <input type="text" [(ngModel)]="name" name="name" class="form-control">
+    <input type="text" required [(ngModel)]="name" name="name" class="form-control">
   </div>
   <div class="form-group">
     <label>Username</label>
-    <input type="text" [(ngModel)]="username" name="username" class="form-control">
+    <input type="text" required [(ngModel)]="username" name="username" class="form-control">
   </div>
   <div class="form-group">
       <label>Email</label>
-      <input type="text" [(ngModel)]="email" name="email" class="form-control">
+      <input type="text" required [(ngModel)]="email" name="email" class="form-control">
     </div>
     <div class="form-group">
       <label>Password</label>
-      <input type="password" [(ngModel)]="password" name="password" class="form-control">
+      <input type="password" required [(ngModel)]="password" name="password" class="form-control">
     </div>
-    <input type="submit" class="btn btn-primary" value="Submit">
+    <input type="submit" class="btn btn-primary" value="Submit" [disabled]="form.invalid" >
 </form>  

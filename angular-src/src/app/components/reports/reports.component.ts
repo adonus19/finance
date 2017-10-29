@@ -35,8 +35,14 @@ export class ReportsComponent implements OnInit {
       console.log(this.expense);
       this.yearsInOrder();
       this.sortedYears = this.yearsToBeSorted.sort();
-      this.yearsNoDupe = Array.from(new Set(this.sortedYears))
+      //this.yearsNoDupe = Array.from(new Set(this.sortedYears))
+      this.yearsNoDupe = this.sortedYears.filter(function(item, pos, self) {
+        return self.indexOf(item) === pos;
+      });
+      this.year = this.yearsNoDupe[0];
+      this.month = this.months[0];
       console.log('yearsNoDupe: ' + this.yearsNoDupe);
+      console.log(Array.isArray(this.yearsNoDupe));
     });
   }
 
@@ -55,7 +61,8 @@ export class ReportsComponent implements OnInit {
         let monthNumber = i + 1;
         for (let expenseIndex = 0; expenseIndex < this.pickedYear.length; expenseIndex++) {
           if (monthNumber == this.pickedYear[expenseIndex].date.slice(5, 7)) {
-            this.sortedByMonth.push(this.pickedYear[expenseIndex]);             
+            this.sortedByMonth.push(this.pickedYear[expenseIndex]);
+            console.log('Expense ID: ' + this.sortedByMonth[0]._id);             
           }
         } 
       } 
@@ -70,11 +77,16 @@ export class ReportsComponent implements OnInit {
     console.log('expenses: ' + this.expense[0].date);
     for (let i = 0; i < this.expense.length; i++) {
       if (this.year == this.expense[i].date.slice(0,4)) {
-        console.log(this.pickedYear);
+        console.log('Picked Year', this.pickedYear);
         this.pickedYear.push(this.expense[i]);
       }
     }
   }
+
+  /*
+  deleteExpense() {
+    this.expenseService.deleteExpense(this.sortedByMonth.id)
+  }   */
 }
     
     

@@ -11,15 +11,12 @@ import { ExpenseService } from '../../services/expense.service';
   styleUrls: ['./expenses.component.css']
 })
 export class ExpensesComponent implements OnInit {
-  /*
-  category: String;
-  amount: Number;
-  date: Date;
-  */
+
   public amount = '';
   public category = '';
   public datepickerModel = '';
   public list = {entries:[]};
+  public categories = [];
   
   constructor(
     private flashMessage: FlashMessagesService,

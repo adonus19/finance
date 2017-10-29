@@ -58,3 +58,6 @@ exports.getExpensebyCategory = (category, callback) => {
     User.find(query, callback);
 };
 
+exports.getExpenseById = (id, callback) => {
+    User.expenses.findById(id, callback);
+};

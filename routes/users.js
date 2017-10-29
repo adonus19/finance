@@ -80,8 +80,39 @@ router.put('/expenses', passport.authenticate('jwt', {session: false}), (req, re
     });
 });
 
+//get expenses
 router.get('/expenses', passport.authenticate('jwt', {session: false}), (req, res, next) => {
     res.json({user: req.user.expenses});
 });
+
+//get one expense
+router.get('/expenses/:id', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+    console.log('incoming request:  ',req.body);
+    Users.getExpenseById(req.params._id, (err, expense) => {
+        if (err) {
+            res.json({success: false, msg: 'could not find expense', err});
+        }
+        if (expense) {
+            res.json({success: true, msg: 'expense found!'});
+        } else {
+            res.json({msg: 'user not found'});
+        }
+    });
+});
+
+
+
+
+
+//delete expenses
+router.delete('/expenses', passport.authenticate('jwt', {session: false}), (req, res, next) => {
+        Users.findByIdAndRemove(req.params.id, (err) => {
+            if (err) {
+                res.json({info: 'error during find user', error: err});
+        };
+        res.json({info: 'expense removed successfully'});
+    });
+
+})
 
 module.exports = router;

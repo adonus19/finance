@@ -22,6 +22,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { ExpenseService } from './services/expense.service';
 import { AuthGuard } from './guards/auth.guard';
 import { DashboardExpensesPipe } from './components/dashboard/dashboard-expenses.pipe';
+import { EditExpenseComponent } from './components/edit-expense/edit-expense.component';
 
 const appRoutes: Routes = [
   {path: '', component: HomeComponent},
@@ -30,7 +31,8 @@ const appRoutes: Routes = [
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
   {path: 'expenses', component: ExpensesComponent, canActivate: [AuthGuard]},
   {path: 'goals', component: GoalsComponent, canActivate: [AuthGuard]},
-  {path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]}
+  {path: 'reports', component: ReportsComponent, canActivate: [AuthGuard]},
+  {path: 'editExpense/:id', component: EditExpenseComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -44,7 +46,8 @@ const appRoutes: Routes = [
     GoalsComponent,
     ExpensesComponent,
     ReportsComponent,
-    DashboardExpensesPipe
+    DashboardExpensesPipe,
+    EditExpenseComponent
   ],
   imports: [
     BrowserModule,

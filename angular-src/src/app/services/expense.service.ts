@@ -36,4 +36,22 @@ export class ExpenseService {
     return this.http.get('http://localhost:3000/users/expenses', {headers: headers})
     .map(res => res.json());
   }
+
+  getOneExpense() {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.get('http://localhost:3000/users/expenses', {headers: headers})
+    .map(res => res.json());
+  }
+
+  deleteExpense(expense) {
+    let headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    return this.http.delete('http://localhost:3000/users/expenses', {headers: headers});
+  }
 }
+

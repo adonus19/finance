@@ -3,34 +3,32 @@
 
   <div class="col-md-4">
     
-    <form (submit)="onExpenseSubmit()">
+    <form (submit)="onExpenseSubmit()" #form="ngForm">
       
       <div class="form-group">
         <label>Category</label>
-        <input type="text" [(ngModel)]="category" name="category" class="form-control">
+        <input type="text" required [(ngModel)]="category" name="category" class="form-control">
       </div>
       
       <div class="form-group">
         <label>Amount</label>
-        <input type="number" [(ngModel)]="amount" name="amount" class="form-control">
+        <input type="number" required [(ngModel)]="amount" name="amount" class="form-control">
       </div>
       
       <div class="form-group">
         <label>Date</label>
-        <input type="text" class="form-control" bsDatepicker [(ngModel)]="datepickerModel" name="datepickerModel" showWeekNumbers="false">
+        <input type="text" required class="form-control" bsDatepicker [(ngModel)]="datepickerModel" name="datepickerModel" showWeekNumbers="false">
       </div>
       
-      <input type="submit" class="btn btn-primary" value="Submit">
+      <input type="submit" class="btn btn-primary" value="Submit" [disabled]="form.invalid">
     </form>
   </div>
   <div class="row">
     <div class="col-md-6">
-      <ul>
-        <li *ngFor="let entry of list.entries">
-          <span style="color:red">{{entry.datepickerModel}}</span>
-          <span style="color:green">{{entry.amount}}</span>
-          <span style="color:blue">{{entry.category}}</span>
-        </li>
+      <ul *ngFor="let entry of list.entries">
+        <li class="list-group-item" style="color:blue">Category: {{entry.category}}</li>        
+        <li class="list-group-item" style="color:green">Amount: {{entry.amount}}</li>
+        <li class="list-group-item" style="color:red">Date: {{entry.datepickerModel}}</li>
       </ul>
     </div>
   </div>

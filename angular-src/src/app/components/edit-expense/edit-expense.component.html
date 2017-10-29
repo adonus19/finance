@@ -1,0 +1,11 @@
+<p>
+  edit-expense works!
+</p>
+
+<ul class="list-group">
+    <li class="list-group-item">Category: {{expense.category}}</li>
+    <li class="list-group-item">Amount: {{expense.amount}}</li>
+    <li class="list-group-item">Date: {{expense.date}}</li>
+    <li class="list-group-item">Expense ID: {{expense._id}}</li>
+    <a class="btn btn-primary" [routerLink]="['/editExpense', key._id]">Edit</a>
+  </ul>

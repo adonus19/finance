@@ -9,10 +9,10 @@
   </div>
   <div class="col-md-5">
     <h3 class="page-header">Last Five Expenses</h3>
-    <ul class="list-group" *ngFor="let ex of user.expenses">
-      <li class="list-group-item">Category: {{ex.category}}</li>
-      <li class="list-group-item">Amount: {{ex.amount}}</li>
-      <li class="list-group-item">Date: {{ex.date}}</li>
+    <ul class="list-group" *ngFor="let ex of user.expenses | slice:0:5; let i=index"  >
+      <li class="list-group-item" *ngIf="i < 11">Category: {{ex.category}}</li>
+      <li class="list-group-item" *ngIf="i < 11">Amount: {{ex.amount}}</li>
+      <li class="list-group-item" *ngIf="i < 11">Date: {{ex.date}}</li>
     </ul>
   </div>
 </div>
